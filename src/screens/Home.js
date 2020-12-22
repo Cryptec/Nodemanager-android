@@ -10,9 +10,12 @@ export default class NodeList extends Component {
 
 
   state = {
+    show: true,
     tasks: [ ], 
     text: "", alias:"", user:"", pass:""
   };
+
+  toggle = () => this.setState((currentState) => ({show: !currentState.show}));
 
   changeTextHandler = text => {
     this.setState({ text: text });
@@ -44,9 +47,6 @@ export default class NodeList extends Component {
       );
     }
   };
-
-
-  
 
 
   deleteTask = i => {
@@ -98,8 +98,12 @@ export default class NodeList extends Component {
               <View style={styles.hr} />
             </View>}
         />
-        
+          
+          <Button onClick={this.toggle} title="&#xe192;"/>
+        {this.state.show &&
         <View style={styles.inputbox}>
+        
+          <Text style={{color:"white", marginLeft: 5}}>Add Node:</Text> 
          <TextInput
           style={styles.textInput}
           onChangeText={this.changeAliasHandler}
@@ -137,7 +141,9 @@ export default class NodeList extends Component {
           returnKeyLabel="done"
         />
         </View>
+      }
       </View>
+          
     );
   }
 }
@@ -210,6 +216,7 @@ appTitle: {
 inputbox: {
   width: "100%",
   borderRadius: 2,
+  display: "flex"
 }
 
 });
