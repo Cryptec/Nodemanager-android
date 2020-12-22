@@ -33,7 +33,7 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.nodemanager-android.Cryptec",
+      "package": "com.nodemanagerandroid.Cryptec",
       "versionCode": 1.0
     }
   }
