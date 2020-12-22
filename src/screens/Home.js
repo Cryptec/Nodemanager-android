@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { AppRegistry, StyleSheet, Text, View, SafeAreaView, FlatList, AsyncStorage, Button, TextInput, Keyboard, Platform, TouchableWithoutFeedback } from "react-native";
+import { AppRegistry, StyleSheet, Text, View, FlatList, Button, TextInput, Keyboard, Platform } from "react-native";
 const isAndroid = Platform.OS == "android";
 const viewPadding = 10;
 import * as WebBrowser from 'expo-web-browser';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default class NodeList extends Component {
@@ -35,8 +36,8 @@ export default class NodeList extends Component {
         prevState => {
           let { tasks, text, alias, user, pass } = prevState;
           return {
-            tasks: tasks.concat({ key: tasks.length, text: text, alias: alias, user: user, pass: pass }),
-            text: "", alias: "", user: "", pass: ""
+            tasks: tasks.concat({ key: tasks.length, alias: alias, text: text, user: user, pass: pass }),
+            alias: "", text: "", user: "", pass: ""
           };
         },
         () => Tasks.save(this.state.tasks)
@@ -80,18 +81,18 @@ export default class NodeList extends Component {
       <View
         style={[styles.container, { paddingBottom: this.state.viewMargin }]}
       >
-         <Text style={styles.appTitle}>Nodes</Text>
+         <Text style={styles.appTitle}>My Nodes:</Text>
         <FlatList
           style={styles.list}
           data={this.state.tasks}
           renderItem={({ item, index }) =>
             <View>
               <View style={styles.listItemCont}>
-              <TouchableWithoutFeedback onPress={() => {WebBrowser.openBrowserAsync(`https://${item.user}:${item.pass}@${item.text}`)}}>
-                <Text style={styles.listItem}>
+              
+                <Text onPress={() => {WebBrowser.openBrowserAsync(`https://${item.user}:${item.pass}@${item.text}`)}} style={styles.listItem}>
                   {item.alias}
                 </Text>
-                </TouchableWithoutFeedback>
+     
                 <Button color= "#ffff" title="&#10006;" onPress={() => this.deleteTask(index)} />
               </View>
               <View style={styles.hr} />
@@ -122,7 +123,7 @@ export default class NodeList extends Component {
           onChangeText={this.changeUserHandler}
           onSubmitEditing={this.addTask}
           value={this.state.user}
-          placeholder="Username"
+          placeholder="Dashboard-user"
           returnKeyType="done"
           returnKeyLabel="done"
         />
@@ -131,7 +132,7 @@ export default class NodeList extends Component {
           onChangeText={this.changePassHandler}
           onSubmitEditing={this.addTask}
           value={this.state.pass}
-          placeholder="password"
+          placeholder="Dashboard-password"
           returnKeyType="done"
           returnKeyLabel="done"
         />
@@ -144,11 +145,11 @@ export default class NodeList extends Component {
 let Tasks = {
   convertToArrayOfObject(tasks, callback) {
     return callback(
-      tasks ? tasks.split("||").map((task, i) => ({ key: i, text: task, url: task })) : []
+      tasks ? tasks.split("||").map((task, i) => ({ key: i, text: task, user: task, pass: task, alias: task, url: task })) : []
     );
   },
   convertToStringWithSeparators(tasks) {
-    return tasks.map(task => task.text).join("||");
+    return tasks.map(task => task.alias).join("||")
   },
   all(callback) {
     return AsyncStorage.getItem("TASKS", (err, tasks) =>
@@ -213,4 +214,4 @@ inputbox: {
 
 });
 
-AppRegistry.registerComponent("NodeList", () => NOdeList);
+AppRegistry.registerComponent("NodeList", () => NodeList);
