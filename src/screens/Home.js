@@ -10,12 +10,15 @@ export default class NodeList extends Component {
 
 
   state = {
-    show: true,
     tasks: [ ], 
-    text: "", alias:"", user:"", pass:""
-  };
+    text: "", alias:"", user:"", pass:"",
+    show: true,
+  }
 
-  toggle = () => this.setState((currentState) => ({show: !currentState.show}));
+ 
+  toggle = () => this.setState(currentState => ({
+    show: !currentState.show
+  }));
 
   changeTextHandler = text => {
     this.setState({ text: text });
@@ -99,8 +102,8 @@ export default class NodeList extends Component {
             </View>}
         />
           
-          <Button onClick={this.toggle} title="&#xe192;"/>
-        {this.state.show &&
+          <Button onClick={this.toggle} title=" ^ "/>
+        {this.state.show && 
         <View style={styles.inputbox}>
         
           <Text style={{color:"white", marginLeft: 5}}>Add Node:</Text> 
@@ -144,7 +147,7 @@ export default class NodeList extends Component {
       }
       </View>
           
-    );
+    )
   }
 }
 
@@ -182,8 +185,9 @@ const styles = StyleSheet.create({
   listItem: {
     paddingTop: 4,
     paddingBottom: 2,
+    paddingLeft: 10,
     fontSize: 18,
-    color:"#ffff"
+    color: "#485776"
   },
   hr: {
     height: 1,
@@ -193,7 +197,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingTop: 10,
+    paddingTop: 0,
+    marginTop: 5,
+    backgroundColor: "white",
+    borderRadius: 3,
   },
   textInput: {
     height: 40,
@@ -203,21 +210,21 @@ const styles = StyleSheet.create({
     borderColor: "#485776",
     borderWidth: isAndroid ? 2 : 1,
     borderRadius: 5,
-    color:"#252525"
+    color: "#252525"
   },
-appTitle: {
-  alignItems:"center",
-  justifyContent: "center",
-  paddingBottom: 45,
-  marginTop: 50,
-  fontSize: 25,
-  color:"#ffff"
-},
-inputbox: {
-  width: "100%",
-  borderRadius: 2,
-  display: "flex"
-}
+  appTitle: {
+    alignItems: "center",
+    justifyContent: "center",
+    paddingBottom: 45,
+    marginTop: 50,
+    fontSize: 25,
+    color: "#ffff"
+  },
+  inputbox: {
+    width: "100%",
+    borderRadius: 2,
+    display: "flex"
+  },
 
 });
 
