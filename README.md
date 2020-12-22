@@ -1,5 +1,5 @@
-# HornetWebApp
-A simple mobile web application for the Hornet Dashboard
+# Android Nodemanager App
+A mobile application for managing multiple Hornet Dashboards
 
 Steps to build it yourself:
 
@@ -9,11 +9,11 @@ Steps to build it yourself:
 
 2. clone the Repo:
 
-> git clone https://github.com/Cryptec/HornetWebApp.git
+> git clone https://github.com/Cryptec/Nodemanager-android.git
 
 3. change the Directory:
 
-> cd HornetWebApp
+> cd Nodemanager-android
 
 4. install dependencys: 
 
