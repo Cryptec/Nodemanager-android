@@ -79,6 +79,13 @@ export default class NodeList extends Component {
     Tasks.all(tasks => this.setState({ tasks: tasks || [] }));
   }
 
+  componentWillUnmount() {
+    // fix Warning: Can't perform a React state update on an unmounted component
+    this.setState = (state,callback)=>{
+        return;
+    };
+}
+
   render() {
     return (
       <View
@@ -88,20 +95,22 @@ export default class NodeList extends Component {
         <FlatList
           style={styles.list}
           data={this.state.tasks}
-          renderItem={({ item, index }) =>
+          keyExtractor={(item, index) => item.toString()}
+          renderItem={ ( {item, index} ) => (
             <View>
               <View style={styles.listItemCont}>
               
                 <Text onPress={() => {WebBrowser.openBrowserAsync(`https://${item.user}:${item.pass}@${item.text}`)}} style={styles.listItem}>
                   {item.alias}
                 </Text>
-     
+               
                 <Button color= "#ffff" title="&#10006;" onPress={() => this.deleteTask(index)} />
               </View>
               <View style={styles.hr} />
-            </View>}
+            </View>
+          )}
         />
-          
+         
           <Button onClick={this.toggle} title=" ^ "/>
         {this.state.show && 
         <View style={styles.inputbox}>
