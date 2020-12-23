@@ -4,6 +4,7 @@ const isAndroid = Platform.OS == "android";
 const viewPadding = 10;
 import * as WebBrowser from 'expo-web-browser';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 export default class NodeList extends Component {
@@ -111,7 +112,7 @@ export default class NodeList extends Component {
           )}
         />
          
-          <Button onClick={this.toggle} title=" ^ "/>
+          <TouchableOpacity onClick={this.toggle}><View style={styles.button}><Text style={styles.arrow}>&#8593;</Text></View></TouchableOpacity>
         {this.state.show && 
         <View style={styles.inputbox}>
         
@@ -232,8 +233,19 @@ const styles = StyleSheet.create({
   inputbox: {
     width: "100%",
     borderRadius: 2,
-    display: "flex"
+    display: "flex",
   },
+  button: {
+    backgroundColor: "#485776",
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  arrow: {
+    color: "white",
+  }
 
 });
 
